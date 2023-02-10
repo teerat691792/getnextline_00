@@ -6,30 +6,37 @@
 #    By: tkulket <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/08 11:57:28 by tkulket           #+#    #+#              #
-#    Updated: 2023/02/08 17:57:42 by tkulket          ###   ########.fr        #
+#    Updated: 2023/02/10 16:15:59 by tkulket          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
+
+BUFF = -D BUFFER_SIZE=42
 
 FLAGS	= -Wall -Werror -Wextra
 
 NAME	= get_next_line.a
 
 SRC		=	get_next_line.c\
-			get_next_line_utils.c
+			get_next_line_utils.c\
+			libft.c
 
 OBJS := $(SRC:.c=.o)
 
 all: $(NAME)
 
 .c.o:
-	gcc $(FLAGS) -g -c $< -o $(<:.c=.o)
+	gcc $(FLAGS) $(BUFF) -g -c $< -o $(<:.c=.o)
 
 $(NAME): $(OBJS)
 	ar -rcs $(NAME) $(OBJS)
 
-c:
-	gcc $(FLAGS) main.c $(NAME)
+c: re
+	gcc $(FLAGS) $(BUFF) -g main.c $(NAME)
 	./a.out
+
+v: c
+	valgrind --leak-check=full --show-leak-kinds=all ./a.out	
+
 clean:
 	rm -f $(OBJS)
 

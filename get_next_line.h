@@ -6,7 +6,7 @@
 /*   By: tkulket <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 12:12:16 by tkulket           #+#    #+#             */
-/*   Updated: 2023/02/08 20:58:01 by tkulket          ###   ########.fr       */
+/*   Updated: 2023/02/10 17:16:54 by tkulket          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,29 @@
 # include <sys/stat.h>
 # include <fcntl.h>
 
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 42
+# endif
+ 
+/* GNL */
 char	*get_next_line(int fd);
+size_t	check_newline(char *collector, char *newline);
 
 
 /* Utility */
 size_t	ft_strlen(char *str);
-size_t	ft_putstr(char *str);
-void	ft_putnbr(int n);
 char	*ft_strchr(const char *s, int c);
 void	*ft_memcpy(void *dst, const void *src, size_t n);
 char	*ft_strjoin(char *s1, char *s2);
+
+
+void	*ft_memcpy(void *dst, const void *src, size_t n);
+void	ft_bzero(void *s, size_t n);
+char	*ft_spiltsubstr(char *s, unsigned int start, size_t len);
+char	**ft_split(char *s, char *delimiter);
+
+/* Libft */
+size_t	ft_putstr(char *str);
+void	ft_putnbr(int n);
 
 #endif

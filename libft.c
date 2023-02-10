@@ -1,46 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   libft.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tkulket <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/08 11:49:56 by tkulket           #+#    #+#             */
-/*   Updated: 2023/02/10 15:30:23 by tkulket          ###   ########.fr       */
+/*   Created: 2023/02/09 17:44:38 by tkulket           #+#    #+#             */
+/*   Updated: 2023/02/09 21:51:05 by tkulket          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
- 
-#define READFILE "abcd"
 
-int main(void)
+size_t	ft_putstr(char *str)
 {
+	int	len;
 
-//	int		result;
-//	char	buffer[BUFF_SIZE + 1];
-	char	*tmp;
+	len = write(1, str, ft_strlen(str));
+	return (len);
+}
 
-
-	int		fd;
-	fd = open(READFILE, O_RDONLY);
-	if (fd == -1)
+void	ft_putnbr(int n)
+{
+	if (n == INT_MIN)
+		write(1, "-2147483648", 11);
+	else if (n < 0)
 	{
-		ft_putstr("open () fails\n");
-		return (1);
+		write(1, "-", 1);
+		n = n * -1;
+		ft_putnbr(n);
 	}
-	tmp = get_next_line(fd);
-	ft_putstr(tmp);
-	write (1,"\n",1);
-	write (1,"\n",1);
-	ft_putstr("fd = ");
-	ft_putnbr(fd);
-	write(1,"\n",1);
-	free(tmp);
-	if (close(fd) == -1)
+	else if (n >= 10)
 	{
-		ft_putstr("close() fails");
-		return (1);
+		ft_putnbr((n / 10));
+		n = (n % 10) + '0';
+		write (1, &n, 1);
 	}
-	return (0);
+	else
+	{
+		n = (n % 10) + '0';
+		write (1, &n, 1);
+	}
 }
