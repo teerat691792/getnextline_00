@@ -6,7 +6,7 @@
 /*   By: tkulket <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 12:11:29 by tkulket           #+#    #+#             */
-/*   Updated: 2023/02/10 17:27:21 by tkulket          ###   ########.fr       */
+/*   Updated: 2023/02/11 12:02:19 by tkulket          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,21 @@ size_t	ft_strlen(char *str)
 	return (len);
 }
 
+size_t	ft_find_newline(char *s, int c)
+{
+	size_t	index;
+
+	index = 0;
+	while (s)
+	{
+		if (*s == c)
+			return (index);
+		index++;
+		s++;
+		
+	}
+	return(0);
+}
 char	*ft_strchr(const char *s, int c)
 {
 	char	*tmp;
@@ -71,6 +86,29 @@ void	*ft_memcpy(void *dst, const void *src, size_t n)
 		i++;
 	}
 	return (d);
+}
+
+void	*ft_memmove(void *dst, const void *src, size_t n)
+{
+	unsigned char	*tmp;
+	unsigned char	*s;
+	size_t			i;
+
+	tmp = dst;
+	s = (unsigned char *)src;
+	if (n == 0 || dst == src)
+		return (dst);
+	if (!dst && !src)
+		return (0);
+	if ((size_t)dst < (size_t)src)
+		ft_memcpy(tmp, s, n);
+	else
+	{
+		i = n;
+		while (i--)
+			tmp[i] = ((unsigned char *)s)[i];
+	}
+	return (dst);
 }
 
 char	*ft_strjoin(char *s1, char *s2)
@@ -211,14 +249,34 @@ size_t	ft_countsplit(char *s, char *delimiter)
 	return (ft_strlen(ft_strnstr(s, delimiter, ft_strlen(s))));
 }
 
+char	*ft_strdup(char *s1)
+{
+	int		i;
+	char	*dest;
+	int		j;
+
+	i = 0;
+	while (s1[i])
+		i++;
+	dest = (char *)malloc(sizeof(*s1) *(i + 1));
+	if (!dest)
+		return (NULL);
+	j = 0;
+	while (s1[j])
+	{
+		dest[j] = s1[j];
+		j++;
+	}
+	dest[j] = '\0';
+	return (dest);
+}
 
 char	**ft_split(char *s, char *delimiter)
 {
 	char	**tmp;
 	size_t	count;
 	size_t	b;
-	size_t	i;
-	int		c = '\n';
+//	size_t	i;
 
 	if (!s)
 		return (NULL);
@@ -228,16 +286,22 @@ char	**ft_split(char *s, char *delimiter)
 	tmp = (char **)malloc(sizeof(char *) * (count + 1));
 	if (!tmp)
 		return (NULL);
+
+/*
 	i = 0;
 	while (i < count)
 	{
-		if (s[0] == c)
-			s = ft_strchr(s, c) + 1;
-		b = ft_strlen(s) - ft_strlen(ft_strchr(s, c));
+		if (s[0] == '\n')
+			s = ft_strnstr(s, delimiter, ft_strlen(s)) + 1;
+		b = ft_strlen(s) - ft_strlen(ft_strnstr(s, delimiter, ft_strlen(s)));
 		tmp[i] = ft_splitsubstr(s, 0, b);
-		s = ft_strchr(s, c) + 1;
+		s = ft_strnstr(s, delimiter, ft_strlen(s)) + 1;
 		i++;
 	}
 	tmp[i] = NULL;
+*/
+	b = ft_strlen(s) - ft_strlen(ft_strnstr(s, delimiter, ft_strlen(s)));
+//	s = ft_strdup(ft_memcpy(s,s,b));
+//	i++;
 	return (tmp);
 }

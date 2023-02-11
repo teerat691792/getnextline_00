@@ -6,7 +6,7 @@
 /*   By: tkulket <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 11:49:56 by tkulket           #+#    #+#             */
-/*   Updated: 2023/02/11 16:44:22 by tkulket          ###   ########.fr       */
+/*   Updated: 2023/02/11 16:40:43 by tkulket          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ int main(void)
 	char	*tmp;
 	size_t  i;
 
+
 	int		fd;
 	fd = open(READFILE, O_RDONLY);
 	if (fd == -1)
@@ -30,7 +31,7 @@ int main(void)
 		return (1);
 	}
 	i = 0;
-	while (i++ < 5 )
+	while (read(fd,tmp,1) )
 	{
 		tmp = get_next_line(fd);
 //		printf("gnl	return	= %s",tmp);
@@ -38,7 +39,9 @@ int main(void)
 		printf("|");
 	}	
 
-	printf("\nfd = %d\n",fd);
+	ft_putstr("fd = ");
+	ft_putnbr(fd);
+	write(1,"\n",1);
 	free(tmp);
 	if (close(fd) == -1)
 	{

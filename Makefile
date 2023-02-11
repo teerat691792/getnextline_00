@@ -6,7 +6,7 @@
 #    By: tkulket <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/08 11:57:28 by tkulket           #+#    #+#              #
-#    Updated: 2023/02/10 16:15:59 by tkulket          ###   ########.fr        #
+#    Updated: 2023/02/11 16:17:38 by tkulket          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,6 +36,14 @@ c: re
 
 v: c
 	valgrind --leak-check=full --show-leak-kinds=all ./a.out	
+
+m:	re
+	cd tester/ && make m
+	cd ..
+
+b:	re
+	cd tester/ && make b
+	cd ..
 
 clean:
 	rm -f $(OBJS)
