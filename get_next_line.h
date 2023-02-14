@@ -6,7 +6,7 @@
 /*   By: tkulket <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 12:12:16 by tkulket           #+#    #+#             */
-/*   Updated: 2023/02/11 16:17:44 by tkulket          ###   ########.fr       */
+/*   Updated: 2023/02/14 20:25:07 by tkulket          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ size_t	check_newline(char *collector, char *newline);
 
 /* Utility */
 size_t	ft_strlen(char *str);
-size_t	ft_find_newline(char *s, int c);
+size_t	ft_find_newline(char *collector);
 char	*ft_strchr(const char *s, int c);
 void	*ft_memcpy(void *dst, const void *src, size_t n);
 void	*ft_memmove(void *dst, const void *src, size_t n);

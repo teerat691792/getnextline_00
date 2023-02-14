@@ -6,7 +6,7 @@
 /*   By: tkulket <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 17:44:38 by tkulket           #+#    #+#             */
-/*   Updated: 2023/02/09 21:51:05 by tkulket          ###   ########.fr       */
+/*   Updated: 2023/02/14 18:03:36 by tkulket          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,9 @@
 size_t	ft_putstr(char *str)
 {
 	int	len;
-
+	
+	if (!str)
+		return (0);
 	len = write(1, str, ft_strlen(str));
 	return (len);
 }

@@ -6,13 +6,13 @@
 /*   By: tkulket <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 11:49:56 by tkulket           #+#    #+#             */
-/*   Updated: 2023/02/11 16:44:22 by tkulket          ###   ########.fr       */
+/*   Updated: 2023/02/14 21:17:40 by tkulket          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
  
-#define READFILE "plaintext/alter"
+#define READFILE "plaintext/20_nl"
 
 int main(void)
 {
@@ -30,16 +30,18 @@ int main(void)
 		return (1);
 	}
 	i = 0;
-	while (i++ < 5 )
+	tmp = "start";
+	while (i++ < 6)
+//	while (tmp)
 	{
+		printf("_");
 		tmp = get_next_line(fd);
-//		printf("gnl	return	= %s",tmp);
+//		printf("****gnl	return	= %s***",tmp);
 		printf("%s",tmp);
-		printf("|");
+		free(tmp);
 	}	
 
 	printf("\nfd = %d\n",fd);
-	free(tmp);
 	if (close(fd) == -1)
 	{
 		ft_putstr("close() fails");

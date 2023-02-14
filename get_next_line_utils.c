@@ -6,7 +6,7 @@
 /*   By: tkulket <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 12:11:29 by tkulket           #+#    #+#             */
-/*   Updated: 2023/02/11 12:02:19 by tkulket          ###   ########.fr       */
+/*   Updated: 2023/02/14 20:25:24 by tkulket          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,21 +30,6 @@ size_t	ft_strlen(char *str)
 	return (len);
 }
 
-size_t	ft_find_newline(char *s, int c)
-{
-	size_t	index;
-
-	index = 0;
-	while (s)
-	{
-		if (*s == c)
-			return (index);
-		index++;
-		s++;
-		
-	}
-	return(0);
-}
 char	*ft_strchr(const char *s, int c)
 {
 	char	*tmp;
@@ -82,7 +67,10 @@ void	*ft_memcpy(void *dst, const void *src, size_t n)
 	i = 0;
 	while (i < n)
 	{
-		d[i] = s[i];
+		if (!s[i])
+			d[i] = '\0';
+		else
+			d[i] = s[i];
 		i++;
 	}
 	return (d);

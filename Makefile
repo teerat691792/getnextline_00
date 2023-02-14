@@ -6,11 +6,11 @@
 #    By: tkulket <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/08 11:57:28 by tkulket           #+#    #+#              #
-#    Updated: 2023/02/11 16:17:38 by tkulket          ###   ########.fr        #
+#    Updated: 2023/02/14 20:59:51 by tkulket          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-BUFF = -D BUFFER_SIZE=42
+BUFF = -D BUFFER_SIZE=12
 
 FLAGS	= -Wall -Werror -Wextra
 
@@ -44,6 +44,9 @@ m:	re
 b:	re
 	cd tester/ && make b
 	cd ..
+
+l:
+	lldb a.out
 
 clean:
 	rm -f $(OBJS)
