@@ -6,7 +6,7 @@
 /*   By: tkulket <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 12:08:19 by tkulket           #+#    #+#             */
-/*   Updated: 2023/02/14 21:16:21 by tkulket          ###   ########.fr       */
+/*   Updated: 2023/02/15 17:04:00 by tkulket          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,9 @@ char	*ft_return_buffersize(char *collector)
 	
 	if (!collector)
 		return (NULL);
-//	len = ft_strlen(collector); 
 	len = (int)ft_find_newline(collector);
-	if (BUFFER_SIZE < len)
-		len = BUFFER_SIZE ;
-	
+//	if (BUFFER_SIZE < len)
+//		len = BUFFER_SIZE ;
 	tmp = malloc(sizeof(char) *(len + 1));
 	if (!tmp)
 	{
@@ -43,7 +41,6 @@ char	*ft_return_buffersize(char *collector)
 	ft_memmove(tmp, collector, len);
 	tmp[len] = '\0';
 	return (tmp);
-	
 }
 
 char	*ft_shorten_remain(char* collector)
@@ -54,36 +51,32 @@ char	*ft_shorten_remain(char* collector)
 
 	if (!collector)
 		return (NULL);
-	
 	len = 0;
 	old = (int)ft_strlen(collector);
 	nl = (int)ft_find_newline(collector);
-	if (BUFFER_SIZE < old)
-		len = BUFFER_SIZE;	
-	else if (len == 0)
-		return (NULL);
-
-	if (nl == 1)
-		len = 1;
-	else if (nl < BUFFER_SIZE)
-		len = nl;
-	ft_memmove(collector, (collector + len), old - len);
-	collector[old - len] = '\0';
+//	if (BUFFER_SIZE < old)
+//		len = BUFFER_SIZE;	
+//	else if (len == 0)
+//		return (NULL);
+//	if (nl == 1)
+//		len = 1;
+//	else if (nl < BUFFER_SIZE)
+//		len = nl;
+	ft_memmove(collector, (collector + nl), old - nl);
+	collector[old - nl] = '\0';
 	if (*collector == '\0')
 		return (NULL);
 	return (collector);
-
 }
-
 
 char	*get_next_line(int fd)
 {
 	char		*buffer;
 	int			result;
-	static int	counter;
+	int			counter;
 	static char	*collector;
-//	size_t		repeat;
 	char		*ret;
+	int			nl;
 	
 //	printf("****buffersize	= %d*****",BUFFER_SIZE);
 	if (BUFFER_SIZE < 1 || fd == -1)
@@ -99,9 +92,9 @@ char	*get_next_line(int fd)
 		collector[0] = '\0';
 	}
 */
-//	repeat = 0;
 	counter = 0;
 	result = 1;
+	nl = 0;
 	while (counter == 0 || result != 0)
 	{
 		result = read(fd, buffer, BUFFER_SIZE);
@@ -120,7 +113,6 @@ char	*get_next_line(int fd)
 		counter += result;
 		collector = ft_strjoin(collector, buffer);
 
-//		repeat++;
 //		printf("collector at repeat	= %zu :%s",repeat, collector);
 //		printf("buffer at repeat	= %zu :%s",repeat, buffer);
 	}

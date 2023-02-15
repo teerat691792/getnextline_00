@@ -6,13 +6,13 @@
 /*   By: tkulket <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 11:49:56 by tkulket           #+#    #+#             */
-/*   Updated: 2023/02/14 21:17:40 by tkulket          ###   ########.fr       */
+/*   Updated: 2023/02/15 17:03:08 by tkulket          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
  
-#define READFILE "plaintext/20_nl"
+#define READFILE "plaintext/fulltext"
 
 int main(void)
 {
@@ -31,8 +31,8 @@ int main(void)
 	}
 	i = 0;
 	tmp = "start";
-	while (i++ < 6)
-//	while (tmp)
+//	while (i++ < 8)
+	while (tmp)
 	{
 		printf("_");
 		tmp = get_next_line(fd);
