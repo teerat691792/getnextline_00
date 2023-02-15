@@ -6,7 +6,7 @@
 /*   By: tkulket <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 12:11:29 by tkulket           #+#    #+#             */
-/*   Updated: 2023/02/14 20:25:24 by tkulket          ###   ########.fr       */
+/*   Updated: 2023/02/15 23:56:04 by tkulket          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,8 @@ size_t	ft_strlen(char *str)
 		return(0);
 	}
 	len = 0;
-	while (*str)
-	{
+	while (str[len] != '\0')
 		len++;
-		str++;
-	}
 	return (len);
 }
 
@@ -55,15 +52,15 @@ char	*ft_strchr(const char *s, int c)
 void	*ft_memcpy(void *dst, const void *src, size_t n)
 {
 	size_t			i;
-	unsigned char	*s;
-	unsigned char	*d;
+	char	*s;
+	char	*d;
 
-	s = (unsigned char *)src;
-	d = (unsigned char *)dst;
+	s = (char *)src;
+	d = dst;
 	if (d == s || n == 0)
 		return (dst);
 	if (!d && !s)
-		return (0);
+		return (NULL);
 	i = 0;
 	while (i < n)
 	{
@@ -108,16 +105,16 @@ char	*ft_strjoin(char *s1, char *s2)
 //	if (!s1 || !s2)
 //		return (0);
 	if (!s2)
-		return (0);
+		return (s1);
 	i = ft_strlen(s1);
 	j = ft_strlen(s2);
 	tmp = malloc(sizeof(char) * (i + j + 1));
 	if (!tmp)
 		return (NULL);
-	ft_memcpy(tmp, s1, i);
+	if (s1)
+		ft_memcpy(tmp, s1, i);
 	ft_memcpy(tmp + i, s2, j);
-	tmp[i + j] = '\0';
-	if(s1)
+	if (s1)
 		free(s1);
 //	if (s2)
 //		free(s2);
