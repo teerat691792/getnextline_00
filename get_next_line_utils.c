@@ -58,6 +58,7 @@ char	*ft_strdup(char *str, int len)
 		tmp[i] = str[i];
 		i++;
 	}
+
 	tmp[i] = 0;
 	return(tmp);
 }
@@ -77,8 +78,8 @@ char	*ft_strdup_free(char *str, int len)
 		tmp[i] = str[i];
 		i++;
 	}
-	if (str)
-		free(str);
+//	if (str)
+	free(str);
 	return(tmp);
 }
 char	*ft_strjoin(char *dst, char *src)
@@ -109,12 +110,7 @@ char	*ft_strjoin(char *dst, char *src)
 		j++;
 	}
 	tmp[i + j] = '\0';
-//	if (src)
-//	{
-//		free(src);
-//	}
-	if (dst)
-		free(dst);
-
+//	free(src);
+	free(dst);
 	return (tmp);
 }

@@ -31,7 +31,7 @@ static char	*ft_trim_remain(char *collector, int nl)
 		i++;
 	}
 	result[i + nl] = '\0';
-//	free(collector);
+	free(collector);
 //	collector = NULL;
 	return (result);
 }
@@ -121,7 +121,7 @@ char	*get_next_line(int fd)
 		{
 			len = ft_strlen(collector);
 			printf("	len :%d\n",len);
-			join = ft_strdup(collector, len);
+			join = ft_strdup_free(collector, len);
 			collector = ft_strjoin(join, buffer);
 		}
 		nl = ft_find_newline(buffer);

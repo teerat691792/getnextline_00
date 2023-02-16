@@ -35,7 +35,7 @@ c: re
 	./a.out
 
 v: c
-	valgrind --leak-check=full --show-leak-kinds=all ./a.out	
+	valgrind --leak-check=full --show-leak-kinds=all ./a.out
 
 m:	re
 	cd tester/ && make m
