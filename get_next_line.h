@@ -6,7 +6,7 @@
 /*   By: tkulket <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 12:12:16 by tkulket           #+#    #+#             */
-/*   Updated: 2023/02/14 20:25:07 by tkulket          ###   ########.fr       */
+/*   Updated: 2023/02/16 22:15:48 by tkulket          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,23 +28,16 @@
  
 /* GNL */
 char	*get_next_line(int fd);
-size_t	check_newline(char *collector, char *newline);
 
 
 /* Utility */
-size_t	ft_strlen(char *str);
-size_t	ft_find_newline(char *collector);
-char	*ft_strchr(const char *s, int c);
-void	*ft_memcpy(void *dst, const void *src, size_t n);
-void	*ft_memmove(void *dst, const void *src, size_t n);
-char	*ft_strjoin(char *s1, char *s2);
+int		ft_strlen(char *str);
+int		ft_find_newline(char *str);
+char	*ft_strjoin(char *dst, char *src);
 
 
-void	*ft_memcpy(void *dst, const void *src, size_t n);
-void	ft_bzero(void *s, size_t n);
-char	*ft_spiltsubstr(char *s, unsigned int start, size_t len);
-char	*ft_strdup(char *s);
-char	**ft_split(char *s, char *delimiter);
+char	*ft_strdup(char *str, int);
+char	*ft_strdup_free(char *str, int);
 
 /* Libft */
 size_t	ft_putstr(char *str);

@@ -5,174 +5,142 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: tkulket <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/08 12:08:19 by tkulket           #+#    #+#             */
-/*   Updated: 2023/02/15 23:56:07 by tkulket          ###   ########.fr       */
+/*   Created: 2023/02/16 14:13:18 by tkulket           #+#    #+#             */
+/*   Updated: 2023/02/16 23:48:04 by tkulket          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-size_t	ft_find_newline(char *collector)
+static char	*ft_trim_remain(char *collector, int nl)
 {
-	size_t	nl;
-	size_t	len;
+	char	*result;
+	int		old;
+	int		i;
+	int 	len;
 
-	if (!collector)
+	old = ft_strlen(collector);
+	len = old - nl;
+	result = malloc(sizeof(char) * (len + 1));
+	if (!result)
+		return (NULL);
+	i = 0;
+	while (i < len)
 	{
-//		printf("ffffffffff");
-		collector = NULL;
-		free(collector);
-		return (0);
+		result[i] = collector[i + nl];
+		i++;
 	}
-	nl = 0;
-	len = ft_strlen(collector);
-	while(collector[nl] != '\n' && nl < len)
-	{
-		if (nl > len)
-			return (-1);
-		nl++;
-	}
-	return (nl + 1);
+	result[i + nl] = '\0';
+//	free(collector);
+//	collector = NULL;
+	return (result);
 }
 
-char	*ft_return_buffersize(char *collector)
+char	*ft_line_return(char *collector, int nl)
 {
-	char	*tmp;
-	int		len;
+	char	*result;
 	
-	if (!collector)
-	{
-//		printf("eeeeeeeeee");
-		collector = NULL;
-		free(collector);
-		return (NULL);
-	}
-	len = (int)ft_find_newline(collector);
-	tmp = malloc(sizeof(char) *(len + 1));
-	if (!tmp)
-	{
-//		write(1,"malloc(tmp) to return fail\n",27);
-		return (NULL);
-	}
-	ft_memmove(tmp, collector, len);
-	tmp[len] = '\0';
-	return (tmp);
+	result = ft_strdup(collector, nl);
+	
+	return (result);
 }
 
-char	*ft_shorten_remain(char* collector)
+/*
+static char	*ft_read_text(int fd)
 {
-	int len;
-	int nl;
-	int old;
+	int		byte;
+	char	*collector;
+	char	*join;
+	char	*buffer;
+	int		nl;
+	int		len;
 
-	if (!collector)
-	{
-//		printf("ddddddddd");
-		collector = NULL;
-		free(collector);
+	if (BUFFER_SIZE < 1 || fd == -1)
 		return (NULL);
-	}
-	len = 0;
-	old = (int)ft_strlen(collector);
-	nl = (int)ft_find_newline(collector);
-	if (nl > old)
-	{
-//		printf(" no_nl in shorten");
-		nl = 0;
-		collector = NULL;
-		free(collector);
+	buffer = malloc(sizeof(char) * BUFFER_SIZE + 1);
+	if (!buffer)
 		return (NULL);
-	}
-	ft_memmove(collector, (collector + nl), old - nl);
-	collector[old - nl] = '\0';
-	if (*collector == '\0')
+	byte = 1;
+	while (byte != 0)
 	{
-//		printf("cccccccccc");
-		collector = NULL;
-		free(collector);
-		return (NULL);
+		byte  = read(fd, buffer, BUFFER_SIZE);
+		buffer[byte] = '\0'; 
+		if (!collector)
+		{
+			printf("null collector\n");
+			collector = ft_strdup(buffer,ft_strlen(buffer));
+		}
+		else
+		{
+			len = ft_strlen(collector);
+			printf("	len :%d\n",len);
+			join = ft_strdup(collector, len);
+			collector = ft_strjoin(join, buffer);
+		}
+		nl = ft_find_newline(buffer);
+		if (nl > 0)
+			break;
 	}
+//	if (buffer)
+		free(buffer);
 	return (collector);
 }
+*/
 
 char	*get_next_line(int fd)
 {
-	char		*buffer;
-	int			result;
-//	int			counter;
-	static char	*collector;
-	char		*ret;
+	char		*result;
+	static char 	*collector;
 	int			nl;
-//	size_t		repeat;
+//	char		*tmp;
+
 	
-//	printf("****buffersize	= %d*****",BUFFER_SIZE);
+//	collector = ft_read_text(fd);
+
+	int		byte;
+	char	*join;
+	char	*buffer;
+	int		len;
+
 	if (BUFFER_SIZE < 1 || fd == -1)
 		return (NULL);
-	buffer = malloc(sizeof(char) *(BUFFER_SIZE + 1));
+	buffer = malloc(sizeof(char) * BUFFER_SIZE + 1);
 	if (!buffer)
 		return (NULL);
-/*	
-	if (collector == NULL)
+	byte = 1;
+	while (byte != 0)
 	{
-		printf("re malloc Collector\n");
-		collector = malloc(1);
-		collector[0] = '\0';
-	}
-*/
-//	repeat = 0;
-//	counter = 0;
-	result = 1;
-	nl = 0;
-//	while (counter == 0 || result != 0)
-	while (result != 0)
-	{
-		result = read(fd, buffer, BUFFER_SIZE);
-		if (result == -1)
+		byte  = read(fd, buffer, BUFFER_SIZE);
+		buffer[byte] = '\0'; 
+		if (!collector)
 		{
-//			write(1, "read() fails\n", 13);
-			free(buffer);
-			return (NULL);
+			printf("null collector\n");
+			collector = ft_strdup(buffer,ft_strlen(buffer));
 		}
-		if (result == 0)
+		else
 		{
-//			write(1, "End of file (EOF)\n", 18);
+			len = ft_strlen(collector);
+			printf("	len :%d\n",len);
+			join = ft_strdup(collector, len);
+			collector = ft_strjoin(join, buffer);
+		}
+		nl = ft_find_newline(buffer);
+		if (nl > 0)
 			break;
-		}
-		buffer[result] = '\0';
-		collector = ft_strjoin(collector, buffer);
-//		counter += result;
-		nl = (int)ft_find_newline(collector) ;
-		if (nl <= (int)ft_strlen(collector) && nl != 0)
-		{
-//			printf("newline() found in collecttor\n");
-			break;
-		}
-		
-//		printf("collector at repeat	= %zu :%s\n",repeat, collector);
-//		printf("buffer at repeat	= %zu :%s",repeat, buffer);
-//		repeat++;
 	}
-//	printf("#_#_#_#_#_#_#_#_#_#_#_#_#_#_#_#_#_#_#_#_#_#_#_#\n");
-//	printf("**bytes counter	=%d**",counter);
+//	if (buffer)
+		free(buffer);
 
-	free(buffer);
-	ret  = ft_return_buffersize(collector);
-//	printf("addr ret is : %p, addr collector is : %p\n",ret,collector);
-//	printf("ret before : %s\n",ret);
-//	printf("col before : %s\n",collector);
-	collector = ft_strdup(collector + ft_find_newline(collector));
-	//collector = ft_shorten_remain(collector); //should input remaining = length 
-//	printf("ret after  : %s\n",ret);
-//	printf("col after  : %s\n",collector);
-//	printf("ret2 : %s",ret);
-//	printf("addr ret is : %p, addr collector is : %p\n",ret,collector);
-	if (!ft_strlen(collector))
-	{
-//		printf("bbbbbbbbbbb");
-		collector = NULL;
-		free(collector);
-	}
-//	printf("***ret		return	=%s***",ret);
-//printf("***collector	remain	=%s***",collector);
-	return (ret);
+	// copy expected return
+	nl = ft_find_newline(collector);
+	result = ft_line_return(collector, nl);
+
+	// cut unexpected remain out
+
+//	tmp = ft_strdup(collector, ft_strlen(collector));
+	collector = ft_trim_remain(collector, nl);
+//	if (*collector == '\0') // free if no remain
+//		free(collector);
+	printf("	collector before return :%s\n",collector);
+	return (result);
 }

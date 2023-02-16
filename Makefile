@@ -6,11 +6,11 @@
 #    By: tkulket <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/08 11:57:28 by tkulket           #+#    #+#              #
-#    Updated: 2023/02/15 23:51:45 by tkulket          ###   ########.fr        #
+#    Updated: 2023/02/16 21:33:17 by tkulket          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-BUFF = -D BUFFER_SIZE=100
+BUFF = -D BUFFER_SIZE=4
 
 FLAGS	= -Wall -Werror -Wextra
 

@@ -6,21 +6,21 @@
 /*   By: tkulket <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 11:49:56 by tkulket           #+#    #+#             */
-/*   Updated: 2023/02/15 23:52:57 by tkulket          ###   ########.fr       */
+/*   Updated: 2023/02/16 18:06:21 by tkulket          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
  
-#define READFILE "plaintext/5_with_nl"
+#define READFILE "plaintext/test"
 
 int main(void)
 {
 
 //	int		result;
 //	char	buffer[BUFF_SIZE + 1];
+	int		i;
 	char	*tmp;
-	size_t  i;
 
 	int		fd;
 	fd = open(READFILE, O_RDONLY);
@@ -30,12 +30,24 @@ int main(void)
 		return (1);
 	}
 	i = 0;
+
+	tmp = get_next_line(fd);
+	printf("main i = %d : %s" ,i,tmp);
+	i++;
+	free(tmp);
+
+	tmp = get_next_line(fd);
+	printf("main i = %d : %s" ,i,tmp);
+	i++;
+	free(tmp);
+
+	tmp = get_next_line(fd);
+	printf("main i = %d : %s" ,i,tmp);
+	i++;
+//	tmp = NULL;
+	free(tmp);
 //	tmp = "start";
-		tmp = get_next_line(fd);
 //	while (i++ < 1)
-		printf("main i = %zu : %s" ,i,tmp);
-		tmp = get_next_line(fd);
-		printf("main i = %zu : %s" ,i,tmp);
 /*
 	while (tmp)
 	{
