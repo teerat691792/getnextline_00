@@ -10,7 +10,7 @@
 #                                                                              #
 # **************************************************************************** #
 
-BUFF = -D BUFFER_SIZE=4
+BUFF = -D BUFFER_SIZE=10
 
 FLAGS	= -Wall -Werror -Wextra
 

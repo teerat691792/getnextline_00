@@ -25,19 +25,16 @@
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 42
 # endif
- 
+
 /* GNL */
 char	*get_next_line(int fd);
-
 
 /* Utility */
 int		ft_strlen(char *str);
 int		ft_find_newline(char *str);
+char	*ft_strdup(char *str, int len);
+char	*ft_strdup_free(char *str, int len);
 char	*ft_strjoin(char *dst, char *src);
-
-
-char	*ft_strdup(char *str, int);
-char	*ft_strdup_free(char *str, int);
 
 /* Libft */
 size_t	ft_putstr(char *str);

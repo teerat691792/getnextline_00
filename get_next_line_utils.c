@@ -12,10 +12,10 @@
 
 #include "get_next_line.h"
 
-int ft_strlen(char *str)
+int	ft_strlen(char *str)
 {
 	int	len;
-	
+
 	if (!str)
 		return (0);
 	len = 0;
@@ -28,13 +28,13 @@ int	ft_find_newline(char *str)
 {
 	int	len;
 	int	i;
-	
+
 	len = ft_strlen(str);
 	i = 0;
 	while (i < len)
 	{
-		if (str[i] == '\n')
-			return (i + 1);//index  if + 1 == len
+		if (str[i] == '\n' )
+			return (i + 1);
 		if (!str)
 			return (0);
 		i++;
@@ -58,10 +58,10 @@ char	*ft_strdup(char *str, int len)
 		tmp[i] = str[i];
 		i++;
 	}
-
-	tmp[i] = 0;
-	return(tmp);
+	tmp[i] = '\0';
+	return (tmp);
 }
+
 char	*ft_strdup_free(char *str, int len)
 {
 	char	*tmp;
@@ -78,10 +78,11 @@ char	*ft_strdup_free(char *str, int len)
 		tmp[i] = str[i];
 		i++;
 	}
-//	if (str)
+	tmp[i] = '\0';
 	free(str);
-	return(tmp);
+	return (tmp);
 }
+
 char	*ft_strjoin(char *dst, char *src)
 {
 	char	*tmp;
@@ -90,27 +91,26 @@ char	*ft_strjoin(char *dst, char *src)
 	int		i;
 	int		j;
 
-	if (!src)
+	lensrc = ft_strlen(src);
+	if (lensrc == 0)
 		return (dst);
 	lendst = ft_strlen(dst);
-	lensrc = ft_strlen(src);
-	tmp = malloc(sizeof(char) * (lendst + lensrc + 1));
+	tmp = malloc(sizeof(char) * (lensrc + lendst + 1));
 	if (!tmp)
 		return (NULL);
 	i = 0;
 	j = 0;
-	while (i < lendst )
+	while (i < lendst)
 	{
 		tmp[i] = dst[i];
 		i++;
 	}
-	while (j < lensrc )
+	while (j < lensrc)
 	{
 		tmp[i + j] = src[j];
 		j++;
 	}
 	tmp[i + j] = '\0';
-//	free(src);
 	free(dst);
 	return (tmp);
 }

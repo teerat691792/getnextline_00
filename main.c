@@ -12,7 +12,7 @@
 
 #include "get_next_line.h"
  
-#define READFILE "plaintext/test"
+#define READFILE "plaintext/files/alternate_line_nl_no_nl"
 
 int main(void)
 {
@@ -31,34 +31,15 @@ int main(void)
 	}
 	i = 0;
 
-	tmp = get_next_line(fd);
-	printf("main i = %d : %s" ,i,tmp);
-	i++;
-	free(tmp);
-
-	tmp = get_next_line(fd);
-	printf("main i = %d : %s" ,i,tmp);
-	i++;
-	free(tmp);
-
-	tmp = get_next_line(fd);
-	printf("main i = %d : %s" ,i,tmp);
-	i++;
-//	tmp = NULL;
-	free(tmp);
-//	tmp = "start";
-//	while (i++ < 1)
-/*
-	while (tmp)
+	tmp = "start";
+	while ( i < 15)
 	{
-//		printf("->");
-		free(tmp);
 		tmp = get_next_line(fd);
-//		printf("****gnl	return	= %s***",tmp);
+		printf("main i = %d : %s" ,i,tmp);
+		free(tmp);
 		i++;
+	}
 
-	}	
-*/
 //	printf("\nfd = %d\n",fd);
 	if (close(fd) == -1)
 	{
