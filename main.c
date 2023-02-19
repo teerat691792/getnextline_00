@@ -34,7 +34,7 @@ int main(void)
 	tmp = "start";
 	while ( i < 15)
 	{
-		tmp = get_next_line(fd);
+		tmp = get_next_line(1000);
 		printf("main i = %d : %s" ,i,tmp);
 		free(tmp);
 		i++;

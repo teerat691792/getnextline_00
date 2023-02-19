@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tkulket <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 static char	*ft_trim_remain(char *collector, int nl)
 {
@@ -62,19 +62,17 @@ char	*get_next_line(int fd)
 	int			byte;
 	char		*buffer;
 
-//	if (fd < 0 || fd > FOPEN_MAX)
-	if (fd < 0 || fd == 3 || fd > FOPEN_MAX) //linux
+	if (fd < 0)
 		return (NULL);
-	if (BUFFER_SIZE < 1)
+	if (BUFFER_SIZE <= 0)
 		return (NULL);
-	buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	buffer = malloc(sizeof(char) * BUFFER_SIZE + 1);
 	if (!buffer)
 		return (NULL);
-//	byte = 1;
-//	while (byte != 0)
-	while ((byte = read(fd, buffer, BUFFER_SIZE)))
+	byte = 1;  // 1 bytebefore 
+	while (byte != 0)
 	{
-//		byte = read(fd, buffer, BUFFER_SIZE);
+		byte = read(fd, buffer, BUFFER_SIZE);
 		buffer[byte] = '\0';
 		if (byte == -1)
 		{
