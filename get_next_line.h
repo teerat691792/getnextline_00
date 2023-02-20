@@ -6,7 +6,7 @@
 /*   By: tkulket <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 12:12:16 by tkulket           #+#    #+#             */
-/*   Updated: 2023/02/16 22:15:48 by tkulket          ###   ########.fr       */
+/*   Updated: 2023/02/20 21:00:00 by tkulket          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,7 @@ char	*get_next_line(int fd);
 /* Utility */
 int		ft_strlen(char *str);
 int		ft_find_newline(char *str);
+void	*ft_strncpy(char *dst, char *src, int len);
 char	*ft_strdup(char *str, int len);
-char	*ft_strdup_free(char *str, int len);
 char	*ft_strjoin(char *dst, char *src);
-
-/* Libft */
-size_t	ft_putstr(char *str);
-void	ft_putnbr(int n);
-
 #endif

@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: tkulket <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/16 14:13:18 by tkulket           #+#    #+#             */
-/*   Updated: 2023/02/16 23:48:04 by tkulket          ###   ########.fr       */
+/*   Created: 2023/02/20 15:58:00 by tkulket           #+#    #+#             */
+/*   Updated: 2023/02/20 20:58:12 by tkulket          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,31 +15,17 @@
 static char	*ft_trim_remain(char *collector, int nl)
 {
 	char	*result;
-	int		old;
-	int		i;
 	int		len;
 
 	if (!collector)
 		return (NULL);
-	old = ft_strlen(collector);
-	len = old - nl;
+	len = ft_strlen(collector) - nl;
 	if (len == 0)
 	{
 		free(collector);
 		return (NULL);
 	}
-	result = malloc(sizeof(char) * (len + 1));
-	if (!result)
-		return (NULL);
-	i = 0;
-	while (i < len)
-	{
-		result[i] = collector[i + nl];
-		i++;
-	}
-	result[i] = '\0';
-	if (*result == '\0')
-		result = NULL;
+	result = ft_strdup(collector + nl, len);
 	free(collector);
 	return (result);
 }
@@ -54,44 +40,50 @@ char	*ft_line_return(char *collector, int nl)
 	return (result);
 }
 
-char	*get_next_line(int fd)
+static char	*ft_read_buffer(int fd, char *buffer, char *collector)
 {
-	char		*result;
-	static char	*collector;
-	int			nl;
-	int			byte;
-	char		*buffer;
+	int		byte;
 
-	if (fd < 0)
-		return (NULL);
-	if (BUFFER_SIZE <= 0)
-		return (NULL);
-	buffer = malloc(sizeof(char) * BUFFER_SIZE + 1);
-	if (!buffer)
-		return (NULL);
-	byte = 1;  // 1 bytebefore 
+	byte = 1;
 	while (byte != 0)
 	{
 		byte = read(fd, buffer, BUFFER_SIZE);
-		buffer[byte] = '\0';
 		if (byte == -1)
 		{
 			free(buffer);
 			return (NULL);
 		}
+		buffer[byte] = '\0';
 		if (!collector)
 			collector = ft_strdup(buffer, byte);
 		else
 			collector = ft_strjoin(collector, buffer);
-		nl = ft_find_newline(buffer);
-		if (nl > 0 || byte == 0)
+		if (ft_find_newline(buffer) > 0)
 			break ;
 	}
 	free(buffer);
-	nl = ft_find_newline(collector);
+	return (collector);
+}
+
+//read_single_line()  or manage multiple opened-files
+
+char	*get_next_line(int fd)
+{
+	char		*result;
+	static char	*collector[FOPEN_MAX];
+	int			nl;
+	char		*buffer;
+
+	if (fd < 0 || fd > FOPEN_MAX || BUFFER_SIZE < 1)
+		return (NULL);
+	buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	if (!buffer)
+		return (NULL);
+	collector[fd] = ft_read_buffer(fd, buffer, collector[fd]);
+	nl = ft_find_newline(collector[fd]);
 	if (nl == -1)
-		nl = ft_strlen(collector);
-	result = ft_line_return(collector, nl);
-	collector = ft_trim_remain(collector, nl);
+		nl = ft_strlen(collector[fd]);
+	result = ft_line_return(collector[fd], nl);
+	collector[fd] = ft_trim_remain(collector[fd], nl);
 	return (result);
 }

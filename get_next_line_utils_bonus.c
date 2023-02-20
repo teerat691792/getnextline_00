@@ -5,12 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: tkulket <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/16 14:14:37 by tkulket           #+#    #+#             */
-/*   Updated: 2023/02/16 23:48:06 by tkulket          ###   ########.fr       */
+/*   Created: 2023/02/20 15:59:02 by tkulket           #+#    #+#             */
+/*   Updated: 2023/02/20 20:58:20 by tkulket          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 int	ft_strlen(char *str)
 {
@@ -42,44 +42,32 @@ int	ft_find_newline(char *str)
 	return (-1);
 }
 
+void	*ft_strncpy(char *dst, char *src, int len)
+{
+	int	i;
+
+	if (!src || len == 0)
+		return (NULL);
+	i = 0;
+	while (i < len)
+	{
+		dst[i] = src[i];
+		i++;
+	}
+	dst[i] = '\0';
+	return (dst);
+}
+
 char	*ft_strdup(char *str, int len)
 {
 	char	*tmp;
-	int		i;
 
 	if (!str || len == 0)
 		return (NULL);
 	tmp = malloc(sizeof(char) * len + 1);
 	if (!tmp)
 		return (NULL);
-	i = 0;
-	while (i < len)
-	{
-		tmp[i] = str[i];
-		i++;
-	}
-	tmp[i] = '\0';
-	return (tmp);
-}
-
-char	*ft_strdup_free(char *str, int len)
-{
-	char	*tmp;
-	int		i;
-
-	if (!str || len == 0)
-		return (NULL);
-	tmp = malloc(sizeof(char) * len + 1);
-	if (!tmp)
-		return (NULL);
-	i = 0;
-	while (i < len)
-	{
-		tmp[i] = str[i];
-		i++;
-	}
-	tmp[i] = '\0';
-	free(str);
+	ft_strncpy(tmp, str, len);
 	return (tmp);
 }
 
@@ -88,8 +76,6 @@ char	*ft_strjoin(char *dst, char *src)
 	char	*tmp;
 	int		lendst;
 	int		lensrc;
-	int		i;
-	int		j;
 
 	lensrc = ft_strlen(src);
 	if (lensrc == 0)
@@ -98,19 +84,8 @@ char	*ft_strjoin(char *dst, char *src)
 	tmp = malloc(sizeof(char) * (lensrc + lendst + 1));
 	if (!tmp)
 		return (NULL);
-	i = 0;
-	j = 0;
-	while (i < lendst)
-	{
-		tmp[i] = dst[i];
-		i++;
-	}
-	while (j < lensrc)
-	{
-		tmp[i + j] = src[j];
-		j++;
-	}
-	tmp[i + j] = '\0';
-	free(dst);
+	ft_strncpy(tmp, dst, lendst);
+	ft_strncpy(tmp + lendst, src, lensrc);
+	free (dst);
 	return (tmp);
 }
