@@ -34,6 +34,8 @@ char	*ft_line_return(char *collector, int nl)
 {
 	char	*result;
 
+	if (!collector)
+		return (NULL);
 	result = ft_strdup(collector, nl);
 	if (!result)
 		return (NULL);
@@ -65,8 +67,6 @@ static char	*ft_read_buffer(int fd, char *buffer, char *collector)
 	return (collector);
 }
 
-//read_single_line()  or manage multiple opened-files
-
 char	*get_next_line(int fd)
 {
 	char		*result;
@@ -76,6 +76,12 @@ char	*get_next_line(int fd)
 
 	if (fd < 0 || fd > FOPEN_MAX || BUFFER_SIZE < 1)
 		return (NULL);
+	if ((nl = ft_find_newline(collector[fd]))> 0)
+	{
+		result = ft_line_return(collector[fd], nl);
+		collector[fd] = ft_trim_remain(collector[fd], nl);
+		return (result);
+	}
 	buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	if (!buffer)
 		return (NULL);

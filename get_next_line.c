@@ -34,6 +34,8 @@ char	*ft_line_return(char *collector, int nl)
 {
 	char	*result;
 
+	if (!collector)
+		return (NULL);
 	result = ft_strdup(collector, nl);
 	if (!result)
 		return (NULL);
@@ -74,6 +76,13 @@ char	*get_next_line(int fd)
 
 	if (fd < 0 || fd > FOPEN_MAX || BUFFER_SIZE < 1)
 		return (NULL);
+	nl = ft_find_newline(collector);
+	if ((nl = ft_find_newline(collector)) > 0)
+	{
+		result = ft_line_return(collector, nl);
+		collector = ft_trim_remain(collector, nl);
+		return (result);
+	}
 	buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	if (!buffer)
 		return (NULL);

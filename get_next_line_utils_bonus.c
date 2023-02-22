@@ -29,6 +29,8 @@ int	ft_find_newline(char *str)
 	int	len;
 	int	i;
 
+	if (!str)
+		return (0);
 	len = ft_strlen(str);
 	i = 0;
 	while (i < len)
